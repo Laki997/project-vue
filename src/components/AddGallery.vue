@@ -23,17 +23,58 @@
         ></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div
+        class="form-group"
+        v-for="(input, index) in gallery.inputs"
+        :key="index"
+      >
+        <label for="photo">Dodaj sliku</label>
+        <input type="text" v-model="input.url" />
+        <i
+          class="fas fa-minus-circle"
+          @click="remove(index)"
+          v-show="index || (!index && gallery.inputs.length > 1)"
+        ></i>
+        <i
+          class="fas fa-plus-circle"
+          @click="add(index)"
+          v-show="index == gallery.inputs.length - 1"
+        ></i>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      gallery: {},
+      gallery: {
+        naziv: "",
+        opis: "",
+        inputs: [{ url: "" }],
+      },
+      //   inputs: [{ url: "" }],
     };
+  },
+
+  methods: {
+    ...mapActions({ addGallery: "gallery/addGallery" }),
+    add(index) {
+      this.gallery.inputs.push({ url: "" });
+      console.log(index);
+    },
+    remove(index) {
+      this.gallery.inputs.splice(index, 1);
+    },
+    async onSubmit() {
+      await this.addGallery(this.gallery);
+    },
   },
 };
 </script>
