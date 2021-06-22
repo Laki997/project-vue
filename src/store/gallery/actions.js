@@ -6,4 +6,11 @@ export const actions = {
 
     store.commit("addGallery", data);
   },
+
+  async getAll(store, page) {
+    const data = await galleryService.getAll(page);
+
+    store.commit("getGalleries", data.data);
+    store.commit("pagination", data);
+  },
 };

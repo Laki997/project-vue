@@ -112,7 +112,7 @@ export default {
       await this.register(this.user)
         .then(() => {
           console.log(this.user);
-          this.$router.push("/about");
+          this.$router.push("/");
         })
         .catch((error) => {
           // this.greske.email = error.response.data.erros.email;

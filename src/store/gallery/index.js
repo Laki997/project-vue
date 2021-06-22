@@ -6,6 +6,8 @@ const store = {
   namespaced: true,
   state: () => ({
     galleries: [],
+    pagination: {},
+    page: 1,
   }),
   actions,
   getters,

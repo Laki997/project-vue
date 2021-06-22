@@ -19,7 +19,7 @@
         </template>
         <template v-else>
           <div class="navbar-nav">
-            <router-link class="nav-item nav-link" to="/posts"
+            <router-link class="nav-item nav-link" to="/galleries"
               >All Galeries</router-link
             >
           </div>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+// import Home from "../views/Home.vue";
+import AppGallery from "../components/AppGallery";
 import AppLogin from "../components/AppLogin";
 import AppRegister from "../components/AppRegister";
 import AddGallery from "../components/AddGallery";
@@ -11,8 +12,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    redirect: "/galleries",
+    component: AppGallery,
+  },
+  {
+    path: "/galleries",
+    component: AppGallery,
     meta: { authRequired: true },
   },
   {
