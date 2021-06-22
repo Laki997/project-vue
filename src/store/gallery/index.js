@@ -8,6 +8,7 @@ const store = {
     galleries: [],
     pagination: {},
     page: 1,
+    searchTerm: "",
   }),
   actions,
   getters,

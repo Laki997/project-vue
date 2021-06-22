@@ -33,6 +33,15 @@
               >Create</router-link
             >
           </div>
+          <div>
+            <input
+              v-model="search"
+              class="navbar-nav"
+              type="text"
+              placeholder="Enter term"
+            />
+            <button @click="filter" class="btn btn-primary">Filtriraj</button>
+          </div>
           <div class="navbar-nav">
             <a class="button" @click="logoutUser">Logout</a>
           </div>
@@ -43,10 +52,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      search: "",
+    };
   },
 
   computed: {
@@ -55,10 +66,18 @@ export default {
   },
   methods: {
     ...mapActions({ logout: "auth/logout" }),
+    ...mapActions({ getAll: "gallery/getAll" }),
+    ...mapMutations({ setSearchTerm: "gallery/setSearchTerm" }),
 
     async logoutUser() {
       await this.logout();
       this.$router.push("/login");
+    },
+
+    filter() {
+      this.setSearchTerm(this.search);
+      console.log(this.search);
+      this.getAll(this.search);
     },
   },
 };

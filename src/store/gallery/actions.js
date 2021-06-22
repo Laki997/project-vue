@@ -8,7 +8,7 @@ export const actions = {
   },
 
   async getAll(store, page) {
-    const data = await galleryService.getAll(page);
+    const data = await galleryService.getAll(page, store.state.searchTerm);
 
     store.commit("getGalleries", data.data);
     store.commit("pagination", data);

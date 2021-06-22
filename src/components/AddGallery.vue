@@ -63,10 +63,6 @@
 </template>
 
 <script>
-Array.prototype.move = function(from, to) {
-  this.splice(to, 0, this.splice(from, 1)[0]);
-  return this;
-};
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -93,6 +89,7 @@ export default {
     },
     async onSubmit() {
       await this.addGallery(this.gallery);
+      this.$router.push("/galleries");
     },
   },
 };
