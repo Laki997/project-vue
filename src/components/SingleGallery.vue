@@ -28,23 +28,61 @@
     >
       <img width="400px" height="400px" :src="photo.url" alt="" />
     </div>
+    <br />
+    <br />
+
+    <h2>Comments</h2>
+    <hr />
+    <div v-for="(comment, index) in gallery.comments" :key="index">
+      <h3>{{ index + 1 }} .{{ comment.body }}</h3>
+    </div>
+    <template v-if="isAuthenticated">
+      <div>
+        <form @submit.prevent="onSubmit">
+          Dodaj komentar:
+          <textarea
+            type="text"
+            v-model="comment.body"
+            name="body"
+            id="body"
+            cols="50"
+            rows="3"
+          ></textarea>
+
+          <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   data() {
-    return {};
+    return {
+      comment: {
+        gallery_id: this.id,
+      },
+    };
   },
   props: ["id"],
 
   computed: {
     ...mapGetters({ gallery: "gallery/gallery" }),
+    ...mapGetters({ isAuthenticated: "auth/isAuthenticated" }),
   },
 
   methods: {
     ...mapActions({ getOne: "gallery/getOne" }),
+    ...mapActions({ addComment: "comment/addComment" }),
+
+    async onSubmit() {
+      await this.addComment(this.comment);
+      console.log(this.comment);
+      console.log(this.id);
+    },
   },
 
   async created() {

@@ -11,7 +11,7 @@
           <a
             class="page-link"
             href="#"
-            @click.prevent="changePage(pagination.current_page)"
+            @click.prevent="changePage(pagination.current_page + 1)"
             >Next</a
           >
         </li>
@@ -30,8 +30,6 @@ export default {
     changePage(page) {
       this.$emit("pagination", page);
       console.log(page);
-
-      //   console.log(this.pagination);
     },
   },
 

@@ -9,8 +9,7 @@ class GalleryService extends baseService {
 
   async getAll(page, term) {
     const { data } = await this.client.get("/galleries", {
-      params: term,
-      page,
+      params: { term, page },
     });
 
     return data;

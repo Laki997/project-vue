@@ -3,7 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          Galerija
+          <h1>
+            <b>Galerija</b>
+          </h1>
         </div>
         <div class="navbar-nav">
           <router-link class="nav-item nav-link" to="/galleries"

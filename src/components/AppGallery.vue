@@ -63,8 +63,6 @@ export default {
 
   async created() {
     await this.getAll();
-    console.log(this.galleries);
-    console.log(this.galleries[0].photos[0].url);
   },
 };
 </script>
