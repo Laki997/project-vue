@@ -8,6 +8,7 @@ import AddGallery from "../components/AddGallery";
 import { globalAuthGuard } from "../guards/authGuard";
 import SingleGallery from "../components/SingleGallery";
 import SingleAuthor from "../components/SingleAuthor";
+import MyGallery from "../components/MyGallery";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes = [
   {
     path: "/galleries/:id",
     component: SingleGallery,
+    props: true,
+  },
+  {
+    path: "/myGalleries",
+    component: MyGallery,
     props: true,
   },
   {

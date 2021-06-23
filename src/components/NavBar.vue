@@ -24,7 +24,7 @@
         </template>
         <template v-else>
           <div class="navbar-nav">
-            <router-link class="nav-item nav-link" to="/posts"
+            <router-link class="nav-item nav-link" to="/myGalleries"
               >My Galeries</router-link
             >
           </div>
