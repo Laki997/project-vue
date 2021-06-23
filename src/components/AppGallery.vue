@@ -1,19 +1,31 @@
 <template>
   <div>
+    <br />
+    <h1>
+      <b><strong>GALERIJE</strong></b>
+    </h1>
+    <hr />
+    <br />
     <div v-for="(gallery, index) in galleries" :key="index">
-      <h3>Naziv Galerije:</h3>
-      <router-link :to="`/galleries/${gallery.id}`">
-        {{ gallery.naziv }}</router-link
-      >
-      <h3>Autor</h3>
-      <router-link :to="`/authors/${gallery.user.id}`"
-        >{{ gallery.user.firstName }} {{ gallery.user.lastName }}</router-link
-      >
-      <h3>Datum:</h3>
-      {{ gallery.created_at }}
-      <h3>Opis:</h3>
-      {{ gallery.opis }}
-      <h3>Fotografije:</h3>
+      <h3>
+        Naziv Galerije:
+        <router-link :to="`/galleries/${gallery.id}`">
+          {{ gallery.naziv }}</router-link
+        >
+      </h3>
+
+      <h3>
+        Autor:
+        <router-link :to="`/authors/${gallery.user.id}`"
+          >{{ gallery.user.firstName }} {{ gallery.user.lastName }}</router-link
+        >
+      </h3>
+
+      <h3>Datum: {{ gallery.created_at }}</h3>
+
+      <h3>Opis: {{ gallery.opis }}</h3>
+
+      <h3>Fotografija:</h3>
       <!-- <img
         width="100px"
         height="100px"
@@ -22,11 +34,13 @@
         :key="index"
       /> -->
       <img
-        width="100px"
-        height="100px"
+        width="300px"
+        height="300px"
         v-bind:src="gallery.photos[0].url"
         :key="index"
       />
+      <br />
+      <br />
     </div>
 
     <pagination :pagination="pagination" @pagination="getAll" />

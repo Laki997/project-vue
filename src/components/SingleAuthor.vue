@@ -20,8 +20,8 @@
       <br />
 
       <img
-        width="100px"
-        height="100px"
+        width="200px"
+        height="200px"
         v-for="(img, index) in user.photos"
         :key="index"
         v-bind:src="img.url"
