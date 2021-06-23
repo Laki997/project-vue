@@ -15,6 +15,13 @@ class GalleryService extends baseService {
 
     return data;
   }
+
+  async getOne(id) {
+    const { data } = await this.client.get(`/galleries/${id}`);
+
+    console.log(data);
+    return data;
+  }
 }
 
 const galleryService = new GalleryService();

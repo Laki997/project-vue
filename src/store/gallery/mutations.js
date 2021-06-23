@@ -15,4 +15,9 @@ export const mutations = {
   setSearchTerm(state, payload) {
     state.searchTerm = payload;
   },
+
+  setOneGallery(state, payload) {
+    state.gallery = payload;
+    console.log(payload);
+  },
 };

@@ -6,6 +6,8 @@ import AppLogin from "../components/AppLogin";
 import AppRegister from "../components/AppRegister";
 import AddGallery from "../components/AddGallery";
 import { globalAuthGuard } from "../guards/authGuard";
+import SingleGallery from "../components/SingleGallery";
+import SingleAuthor from "../components/SingleAuthor";
 
 Vue.use(VueRouter);
 
@@ -18,7 +20,11 @@ const routes = [
   {
     path: "/galleries",
     component: AppGallery,
-    meta: { authRequired: true },
+  },
+  {
+    path: "/galleries/:id",
+    component: SingleGallery,
+    props: true,
   },
   {
     path: "/create",
@@ -34,6 +40,12 @@ const routes = [
     path: "/register",
     component: AppRegister,
     meta: { guestRequired: true },
+  },
+  {
+    path: "/authors/:id",
+    component: SingleAuthor,
+    name: "author",
+    props: true,
   },
   {
     path: "/about",

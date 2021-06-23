@@ -5,6 +5,11 @@
         <div class="navbar-nav">
           Galerija
         </div>
+        <div class="navbar-nav">
+          <router-link class="nav-item nav-link" to="/galleries"
+            >All Galeries</router-link
+          >
+        </div>
         <template v-if="!isAuthenticated">
           <div class="navbar-nav">
             <router-link class="nav-item nav-link" to="/register"
@@ -18,11 +23,6 @@
           </div>
         </template>
         <template v-else>
-          <div class="navbar-nav">
-            <router-link class="nav-item nav-link" to="/galleries"
-              >All Galeries</router-link
-            >
-          </div>
           <div class="navbar-nav">
             <router-link class="nav-item nav-link" to="/posts"
               >My Galeries</router-link
@@ -40,10 +40,14 @@
               type="text"
               placeholder="Enter term"
             />
+          </div>
+          <div>
             <button @click="filter" class="btn btn-primary">Filtriraj</button>
           </div>
           <div class="navbar-nav">
-            <a class="button" @click="logoutUser">Logout</a>
+            <a tag="button" class="btn btn-warning" @click="logoutUser"
+              >Logout</a
+            >
           </div>
         </template>
       </div>
@@ -77,7 +81,7 @@ export default {
     filter() {
       this.setSearchTerm(this.search);
       console.log(this.search);
-      this.getAll(this.search);
+      this.getAll();
     },
   },
 };

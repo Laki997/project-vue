@@ -5,12 +5,9 @@ import { getters } from "./getters";
 const store = {
   namespaced: true,
   state: () => ({
-    galleries: [],
-    gallery: {},
-    pagination: {},
-    page: 1,
-    searchTerm: "",
+    oneUser: {},
   }),
+
   actions,
   getters,
   mutations,

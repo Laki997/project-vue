@@ -1,11 +1,19 @@
 <template>
   <div>
     <div v-for="(gallery, index) in galleries" :key="index">
-      Naziv galerije: {{ gallery.naziv }}
-      Autor:
-      {{ gallery.user.firstName }} {{ gallery.user.lastName }}
-      Datum:
+      <h3>Naziv Galerije:</h3>
+      <router-link :to="`/galleries/${gallery.id}`">
+        {{ gallery.naziv }}</router-link
+      >
+      <h3>Autor</h3>
+      <router-link :to="`/authors/${gallery.user.id}`"
+        >{{ gallery.user.firstName }} {{ gallery.user.lastName }}</router-link
+      >
+      <h3>Datum:</h3>
       {{ gallery.created_at }}
+      <h3>Opis:</h3>
+      {{ gallery.opis }}
+      <h3>Fotografije:</h3>
       <img
         width="100px"
         height="100px"

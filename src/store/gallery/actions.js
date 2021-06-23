@@ -9,8 +9,14 @@ export const actions = {
 
   async getAll(store, page) {
     const data = await galleryService.getAll(page, store.state.searchTerm);
-
+    console.log(data);
     store.commit("getGalleries", data.data);
     store.commit("pagination", data);
+  },
+
+  async getOne(store, id) {
+    const gallery = await galleryService.getOne(id);
+
+    store.commit("setOneGallery", gallery);
   },
 };

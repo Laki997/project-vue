@@ -58,6 +58,7 @@
       <button type="submit" class="btn btn-primary">
         Submit
       </button>
+      <button @click="cancel" class="btn btn-warning">Cancel</button>
     </form>
   </div>
 </template>
@@ -77,6 +78,10 @@ export default {
 
   methods: {
     ...mapActions({ addGallery: "gallery/addGallery" }),
+
+    cancel() {
+      this.$router.push("/galleries");
+    },
     add(index) {
       this.gallery.inputs.push({ url: "" });
       console.log(index);
@@ -88,8 +93,15 @@ export default {
       this.gallery.inputs.move(from, to);
     },
     async onSubmit() {
-      await this.addGallery(this.gallery);
-      this.$router.push("/galleries");
+      await this.addGallery(this.gallery)
+        .then(() => {
+          this.$router.push("/galleries");
+        })
+        .catch((error) => {
+          const errors = Object.values(error.response.data.errors);
+
+          alert(`${errors}` + "\n");
+        });
     },
   },
 };
