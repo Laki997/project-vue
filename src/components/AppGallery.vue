@@ -14,11 +14,17 @@
       <h3>Opis:</h3>
       {{ gallery.opis }}
       <h3>Fotografije:</h3>
-      <img
+      <!-- <img
         width="100px"
         height="100px"
         v-for="(img, index) in gallery.photos"
         v-bind:src="img.url"
+        :key="index"
+      /> -->
+      <img
+        width="100px"
+        height="100px"
+        v-bind:src="gallery.photos[0].url"
         :key="index"
       />
     </div>
@@ -43,6 +49,8 @@ export default {
 
   async created() {
     await this.getAll();
+    console.log(this.galleries);
+    console.log(this.galleries[0].photos[0].url);
   },
 };
 </script>
