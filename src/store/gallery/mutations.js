@@ -5,13 +5,17 @@ export const mutations = {
   },
 
   getGalleries(state, payload) {
-    const temp = [...state.galleries];
-    console.log(temp);
-    payload.map((p) => {
-      temp.push(p);
-    });
-    console.log("MILOS" + temp);
-    state.galleries = temp;
+    if (state.page === 1) {
+      state.galleries = payload;
+    } else {
+      const temp = [...state.galleries];
+      console.log(temp);
+      payload.map((p) => {
+        temp.push(p);
+      });
+      console.log("MILOS" + temp);
+      state.galleries = temp;
+    }
   },
 
   pagination(state, payload) {

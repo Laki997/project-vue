@@ -21,13 +21,75 @@
       >
     </h2>
 
-    <div
+    <!-- <div
       class="carousel-slide"
       v-for="(photo, index) in gallery.photos"
       :key="index"
     >
       <a :href="photo.url" target="_blank">
         <img width="399px" height="400px" :src="photo.url" alt="" />
+      </a>
+    </div> -->
+
+    <!-- <div
+      class="carousel-slide"
+      v-for="(photo, index) in gallery.photos"
+      :key="index"
+    >
+      <a :href="photo.url" target="_blank">
+        <img width="399px" height="400px" :src="photo.url" alt="" />
+      </a>
+    </div> -->
+    <div
+      id="carouselExampleControls"
+      class="carousel slide"
+      data-ride="carousel"
+    >
+      <div
+        class="carousel-inner"
+        v-for="(photo, index) in gallery.photos"
+        :key="index"
+      >
+        <!-- <div v-if="index === 0" class="carousel-item active">
+          <a :href="photo.url" target="_blank">
+            <img
+              class="d-block w-100"
+              width="399px"
+              height="400px"
+              :src="photo.url"
+              alt=""
+            />
+          </a>
+        </div> -->
+        <div class="carousel-item" :class="{ active: index === 0 }">
+          <a :href="photo.url" target="_blank">
+            <img
+              class="d-block w-100"
+              width="399px"
+              height="400px"
+              :src="photo.url"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+      <a
+        class="carousel-control-prev"
+        href="#carouselExampleControls"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#carouselExampleControls"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
       </a>
     </div>
     <br />

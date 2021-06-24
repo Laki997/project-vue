@@ -74,6 +74,7 @@ export default {
     ...mapActions({ logout: "auth/logout" }),
     ...mapActions({ getAll: "gallery/getAll" }),
     ...mapMutations({ setSearchTerm: "gallery/setSearchTerm" }),
+    ...mapMutations({ setPage: "gallery/setPage" }),
 
     async logoutUser() {
       await this.logout();
@@ -82,6 +83,7 @@ export default {
 
     filter() {
       this.setSearchTerm(this.search);
+      this.setPage(1);
       console.log(this.search);
       this.getAll();
     },
