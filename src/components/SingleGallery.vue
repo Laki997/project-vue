@@ -97,7 +97,7 @@
       <h3>{{ index + 1 }}. {{ comment.body }}</h3>
       <h3>{{ comment.created_at }}</h3>
       <div v-if="comment.user.id === user.id">
-        <button @click="deleteComm(comment.id, index)" class="btn btn-danger">
+        <button @click="prikaziDialog(index)" class="btn btn-danger">
           Obrisi
         </button>
       </div>
@@ -124,13 +124,23 @@
         </form>
       </div>
     </template>
+    <div>
+      <delete-comment-dialog
+        :show="showDialog"
+        :cancel="cancel"
+        :confirm="confirm"
+        :modalText="modalText"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import DeleteCommentDialog from "./DeleteCommentDialog.vue";
 
 export default {
+  components: { DeleteCommentDialog },
   data() {
     return {
       comment: {
@@ -139,6 +149,10 @@ export default {
       },
 
       comments: [],
+
+      showDialog: false,
+      selectedComment: "",
+      modalText: "Da li ste sigurni da zelite da obrisete komentar?",
     };
   },
   props: ["id"],
@@ -157,11 +171,25 @@ export default {
     ...mapActions({ deleteComment: "comment/deleteComment" }),
     // ...mapActions({ getActiveUser: "auth/getActiveUser" }),
 
-    async deleteComm(id, index) {
-      console.log(id, index);
-      await this.deleteComment(id);
-      this.comments.splice(index, 1);
+    prikaziDialog(index) {
+      this.showDialog = true;
+      this.selectedComment = this.comments[index];
     },
+    cancel() {
+      console.log("Cancel");
+      this.showDialog = false;
+    },
+    async confirm() {
+      this.showDialog = false;
+      await this.deleteComment(this.selectedComment.id);
+      this.comments.splice(this.comments.indexOf(this.selectedComment), 1);
+    },
+
+    // async deleteComm(id, index) {
+    //   console.log(id, index);
+    //   await this.deleteComment(id);
+    //   this.comments.splice(index, 1);
+    // },
 
     async onSubmit() {
       await this.addComment(this.comment);
