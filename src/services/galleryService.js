@@ -12,6 +12,8 @@ class GalleryService extends baseService {
       params: { term, page },
     });
 
+    console.log(term);
+
     return data;
   }
 

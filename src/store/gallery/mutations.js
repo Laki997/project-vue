@@ -5,7 +5,13 @@ export const mutations = {
   },
 
   getGalleries(state, payload) {
-    state.galleries = payload;
+    const temp = [...state.galleries];
+    console.log(temp);
+    payload.map((p) => {
+      temp.push(p);
+    });
+    console.log("MILOS" + temp);
+    state.galleries = temp;
   },
 
   pagination(state, payload) {
@@ -14,6 +20,10 @@ export const mutations = {
 
   setSearchTerm(state, payload) {
     state.searchTerm = payload;
+  },
+
+  setPage(state, payload) {
+    state.page = payload;
   },
 
   setOneGallery(state, payload) {

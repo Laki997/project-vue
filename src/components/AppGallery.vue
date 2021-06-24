@@ -48,7 +48,6 @@
 </template>
 
 <script>
-// Negde ce biti greske na pocetku jer nema svaka slika url zbog greske u regexu ne zaboavi da dodas!!!!
 import { mapActions, mapGetters } from "vuex";
 import Pagination from "./Pagination.vue";
 export default {
@@ -62,7 +61,9 @@ export default {
   },
 
   async created() {
-    await this.getAll();
+    await this.getAll().catch((error) => {
+      alert(error.response.data.error.message);
+    });
   },
 };
 </script>

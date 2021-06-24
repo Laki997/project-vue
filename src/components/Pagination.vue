@@ -5,14 +5,15 @@
         <li
           class="page-item"
           :class="{
-            disabled: pagination.current_page === pagination.last_page,
+            hiddenButton: pagination.current_page === pagination.last_page,
           }"
         >
           <a
-            class="page-link"
+            class="btn btn-primary"
+            tag="button"
             href="#"
             @click.prevent="changePage(pagination.current_page + 1)"
-            >Next</a
+            >Load more</a
           >
         </li>
       </ul>
@@ -21,14 +22,16 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   props: ["pagination"],
 
   methods: {
     ...mapActions({ getAll: "gallery/getAll" }),
+    ...mapMutations({ setPage: "gallery/setPage" }),
     changePage(page) {
       this.$emit("pagination", page);
+      this.setPage(page);
       console.log(page);
     },
   },
@@ -39,4 +42,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hiddenButton {
+  display: none;
+}
+</style>

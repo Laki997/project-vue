@@ -12,6 +12,17 @@
             >All Galeries</router-link
           >
         </div>
+        <div>
+          <input
+            v-model="search"
+            class="navbar-nav"
+            type="text"
+            placeholder="Enter term"
+          />
+        </div>
+        <div>
+          <button @click="filter" class="btn btn-primary">Filtriraj</button>
+        </div>
         <template v-if="!isAuthenticated">
           <div class="navbar-nav">
             <router-link class="nav-item nav-link" to="/register"
@@ -34,17 +45,6 @@
             <router-link class="nav-item nav-link" to="/create"
               >Create</router-link
             >
-          </div>
-          <div>
-            <input
-              v-model="search"
-              class="navbar-nav"
-              type="text"
-              placeholder="Enter term"
-            />
-          </div>
-          <div>
-            <button @click="filter" class="btn btn-primary">Filtriraj</button>
           </div>
           <div class="navbar-nav">
             <a tag="button" class="btn btn-warning" @click="logoutUser"

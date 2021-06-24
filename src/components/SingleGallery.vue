@@ -40,6 +40,10 @@
       <h3>Autor: {{ comment.user.firstName }} {{ comment.user.lastName }}</h3>
       <h3>{{ index + 1 }}. {{ comment.body }}</h3>
       <h3>{{ comment.created_at }}</h3>
+      <div v-if="comment.user.id === user.id">
+        <button class="btn btn-danger">Obrisi</button>
+      </div>
+      <hr />
     </div>
     <template v-if="isAuthenticated">
       <div>
@@ -84,6 +88,7 @@ export default {
   computed: {
     ...mapGetters({ gallery: "gallery/gallery" }),
     ...mapGetters({ isAuthenticated: "auth/isAuthenticated" }),
+    ...mapGetters({ user: "auth/user" }),
     // ...mapGetters({ comments: "comment/comments" }),
   },
 
@@ -91,6 +96,7 @@ export default {
     ...mapActions({ getOne: "gallery/getOne" }),
     ...mapActions({ addComment: "comment/addComment" }),
     ...mapActions({ getCommentsForGallery: "comment/getCommentsForGallery" }),
+    // ...mapActions({ getActiveUser: "auth/getActiveUser" }),
 
     async onSubmit() {
       await this.addComment(this.comment);
@@ -102,6 +108,7 @@ export default {
   async created() {
     await this.getOne(this.id);
     this.comments = await this.getCommentsForGallery(this.id);
+    await this.$store.dispatch("auth/getActiveUser");
   },
 };
 </script>
