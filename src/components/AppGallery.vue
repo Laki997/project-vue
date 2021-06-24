@@ -48,16 +48,18 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import Pagination from "./Pagination.vue";
 export default {
   components: { Pagination },
   computed: {
     ...mapGetters({ galleries: "gallery/galleries" }),
     ...mapGetters({ pagination: "gallery/pagination" }),
+    ...mapGetters({ searchTerm: "gallery/searchTerm" }),
   },
   methods: {
     ...mapActions({ getAll: "gallery/getAll" }),
+    ...mapMutations({ setSearchTerm: "gallery/setSearchTerm" }),
   },
 
   async created() {

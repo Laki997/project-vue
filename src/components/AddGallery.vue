@@ -37,8 +37,8 @@
         ></i>
         <i
           class=" fas fa-angle-down"
-          @click="move(index)"
-          :disabled="index == 0"
+          @click="move(index, index + 1)"
+          :disabled="index == gallery.inputs.length - 1"
         >
         </i>
 
@@ -49,8 +49,8 @@
         ></i>
         <i
           class="fas fa-angle-up"
-          @click="index += 1"
-          :disabled="index == gallery.inputs - 1"
+          @click="move(index, index - 1)"
+          :disabled="index == -1"
         >
         </i>
       </div>
@@ -89,8 +89,20 @@ export default {
     remove(index) {
       this.gallery.inputs.splice(index, 1);
     },
-    move(index) {
+    moveUp(index) {
       return (index += 1);
+    },
+
+    move(oldIndex, newIndex) {
+      if (oldIndex == 0 && newIndex == -1) {
+        return;
+      }
+
+      this.gallery.inputs.splice(
+        newIndex,
+        0,
+        this.gallery.inputs.splice(oldIndex, 1)[0]
+      );
     },
     async onSubmit() {
       await this.addGallery(this.gallery)

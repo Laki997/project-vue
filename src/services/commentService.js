@@ -15,6 +15,13 @@ class CommentService extends baseService {
 
     return data;
   }
+
+  async deleteComment(id) {
+    console.log(id);
+    const { data } = await this.client.delete(`/comments/${id}`);
+
+    return data;
+  }
 }
 
 const commentService = new CommentService();

@@ -40,28 +40,20 @@
         <img width="399px" height="400px" :src="photo.url" alt="" />
       </a>
     </div> -->
+
     <div
       id="carouselExampleControls"
+      data-interval="false"
       class="carousel slide"
       data-ride="carousel"
     >
-      <div
-        class="carousel-inner"
-        v-for="(photo, index) in gallery.photos"
-        :key="index"
-      >
-        <!-- <div v-if="index === 0" class="carousel-item active">
-          <a :href="photo.url" target="_blank">
-            <img
-              class="d-block w-100"
-              width="399px"
-              height="400px"
-              :src="photo.url"
-              alt=""
-            />
-          </a>
-        </div> -->
-        <div class="carousel-item" :class="{ active: index === 0 }">
+      <div class="carousel-inner">
+        <div
+          v-for="(photo, index) in gallery.photos"
+          :key="index"
+          class="carousel-item"
+          :class="{ active: index == 0 }"
+        >
           <a :href="photo.url" target="_blank">
             <img
               class="d-block w-100"
@@ -72,25 +64,25 @@
             />
           </a>
         </div>
+        <a
+          class="carousel-control-prev"
+          href="#carouselExampleControls"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carouselExampleControls"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      <a
-        class="carousel-control-prev"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
     </div>
     <br />
     <br />
@@ -105,7 +97,9 @@
       <h3>{{ index + 1 }}. {{ comment.body }}</h3>
       <h3>{{ comment.created_at }}</h3>
       <div v-if="comment.user.id === user.id">
-        <button class="btn btn-danger">Obrisi</button>
+        <button @click="deleteComm(comment.id, index)" class="btn btn-danger">
+          Obrisi
+        </button>
       </div>
       <hr />
     </div>
@@ -160,7 +154,14 @@ export default {
     ...mapActions({ getOne: "gallery/getOne" }),
     ...mapActions({ addComment: "comment/addComment" }),
     ...mapActions({ getCommentsForGallery: "comment/getCommentsForGallery" }),
+    ...mapActions({ deleteComment: "comment/deleteComment" }),
     // ...mapActions({ getActiveUser: "auth/getActiveUser" }),
+
+    async deleteComm(id, index) {
+      console.log(id, index);
+      await this.deleteComment(id);
+      this.comments.splice(index, 1);
+    },
 
     async onSubmit() {
       await this.addComment(this.comment);

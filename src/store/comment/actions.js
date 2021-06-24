@@ -10,4 +10,11 @@ export const actions = {
   async getCommentsForGallery(store, id) {
     return await commentService.getComments(id);
   },
+
+  async deleteComment(store, id) {
+    console.log(id);
+    const data = await commentService.deleteComment(id);
+
+    return data;
+  },
 };

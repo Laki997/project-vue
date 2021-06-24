@@ -12,6 +12,9 @@
             >All Galeries</router-link
           >
         </div>
+        <!-- <div class="navbar-nav">
+          <a class="btn btn-warning" to="/galleries">Galleries</a>
+        </div> -->
         <div>
           <input
             v-model="search"
@@ -81,11 +84,11 @@ export default {
       this.$router.push("/login");
     },
 
-    filter() {
+    async filter() {
       this.setSearchTerm(this.search);
       this.setPage(1);
-      console.log(this.search);
-      this.getAll();
+
+      await this.getAll();
     },
   },
 };
