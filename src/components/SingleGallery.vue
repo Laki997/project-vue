@@ -33,23 +33,32 @@
 
     <h2>Comments</h2>
     <hr />
-    <div v-for="(comment, index) in gallery.comments" :key="index">
+    <!-- <div v-for="(comment, index) in gallery.comments" :key="index">
       <h3>{{ index + 1 }} .{{ comment.body }}</h3>
+    </div> -->
+    <div v-for="(comment, index) in comments" :key="comment.id">
+      <h3>Autor: {{ comment.user.firstName }} {{ comment.user.lastName }}</h3>
+      <h3>{{ index + 1 }}. {{ comment.body }}</h3>
+      <h3>{{ comment.created_at }}</h3>
     </div>
     <template v-if="isAuthenticated">
       <div>
         <form @submit.prevent="onSubmit">
           Dodaj komentar:
           <textarea
+            class="body"
             type="text"
             v-model="comment.body"
             name="body"
             id="body"
             cols="50"
             rows="3"
+            required
           ></textarea>
 
-          <button type="submit" class="btn btn-primary">Dodaj</button>
+          <button type="submit" class="btn btn-primary">
+            Dodaj
+          </button>
         </form>
       </div>
     </template>
@@ -64,7 +73,10 @@ export default {
     return {
       comment: {
         gallery_id: this.id,
+        body: "",
       },
+
+      comments: [],
     };
   },
   props: ["id"],
@@ -72,21 +84,24 @@ export default {
   computed: {
     ...mapGetters({ gallery: "gallery/gallery" }),
     ...mapGetters({ isAuthenticated: "auth/isAuthenticated" }),
+    // ...mapGetters({ comments: "comment/comments" }),
   },
 
   methods: {
     ...mapActions({ getOne: "gallery/getOne" }),
     ...mapActions({ addComment: "comment/addComment" }),
+    ...mapActions({ getCommentsForGallery: "comment/getCommentsForGallery" }),
 
     async onSubmit() {
       await this.addComment(this.comment);
-      console.log(this.comment);
-      console.log(this.id);
+      this.comments = await this.getCommentsForGallery(this.id);
+      this.comment.body = "";
     },
   },
 
   async created() {
     await this.getOne(this.id);
+    this.comments = await this.getCommentsForGallery(this.id);
   },
 };
 </script>

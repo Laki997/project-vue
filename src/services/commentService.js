@@ -7,6 +7,14 @@ class CommentService extends baseService {
 
     return data;
   }
+
+  async getComments(id) {
+    const { data } = await this.client.get(`/galleries/${id}/comments`);
+
+    console.log(data);
+
+    return data;
+  }
 }
 
 const commentService = new CommentService();

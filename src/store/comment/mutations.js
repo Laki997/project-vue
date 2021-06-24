@@ -1,5 +1,6 @@
 export const mutations = {
-  addComment(state, payload) {
+  addComments(state, payload) {
     state.comments.push(payload);
+    console.log(payload);
   },
 };
