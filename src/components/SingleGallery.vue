@@ -26,7 +26,9 @@
       v-for="(photo, index) in gallery.photos"
       :key="index"
     >
-      <img width="400px" height="400px" :src="photo.url" alt="" />
+      <a :href="photo.url" target="_blank">
+        <img width="399px" height="400px" :src="photo.url" alt="" />
+      </a>
     </div>
     <br />
     <br />
