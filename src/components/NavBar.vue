@@ -12,20 +12,23 @@
             >All Galeries</router-link
           >
         </div>
+        <div>
+          <input @input="search" placeholder="Enter search" />
+        </div>
         <!-- <div class="navbar-nav">
           <a class="btn btn-warning" to="/galleries">Galleries</a>
         </div> -->
-        <div>
-          <input
+        <!-- <div> -->
+        <!-- <input
             v-model="search"
             class="navbar-nav"
             type="text"
             placeholder="Enter term"
           />
-        </div>
-        <div>
+        </div> -->
+        <!-- <div>
           <button @click="filter" class="btn btn-primary">Filtriraj</button>
-        </div>
+        </div> -->
         <template v-if="!isAuthenticated">
           <div class="navbar-nav">
             <router-link class="nav-item nav-link" to="/register"
@@ -64,9 +67,7 @@
 import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   data() {
-    return {
-      search: "",
-    };
+    return {};
   },
 
   computed: {
@@ -84,12 +85,17 @@ export default {
       this.$router.push("/login");
     },
 
-    async filter() {
-      this.setSearchTerm(this.search);
-      this.setPage(1);
-
-      await this.getAll();
+    search(evt) {
+      this.setSearchTerm(evt.target.value);
+      this.getAll();
     },
+
+    // async filter() {
+    //   this.setSearchTerm(this.search);
+    //   this.setPage(1);
+
+    //   await this.getAll();
+    // },
   },
 };
 </script>

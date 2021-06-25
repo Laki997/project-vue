@@ -82,7 +82,7 @@ export default {
     ...mapActions({ addGallery: "gallery/addGallery" }),
 
     cancel() {
-      this.$router.push("/galleries");
+      this.$router.push("/myGalleries");
     },
     add(index) {
       this.gallery.inputs.push({ url: "" });

@@ -62,10 +62,6 @@ export default {
   methods: {
     ...mapActions({ getAll: "gallery/getAll" }),
     ...mapMutations({ setSearchTerm: "gallery/setSearchTerm" }),
-
-    alert() {
-      alert("greska");
-    },
   },
 
   async created() {
