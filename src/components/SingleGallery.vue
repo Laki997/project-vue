@@ -21,7 +21,7 @@
       >
     </h2>
 
-    <div
+    <!-- <div
       class="carousel-slide"
       v-for="(photo, index) in gallery.photos"
       :key="index"
@@ -29,6 +29,29 @@
       <a :href="photo.url" target="_blank">
         <img width="399px" height="400px" :src="photo.url" alt="" />
       </a>
+    </div> -->
+
+    <div>
+      <b-carousel
+        id="carousel-no-animation"
+        style="text-shadow: 0px 0px 2px #000"
+        no-animation
+        indicators
+        img-width="50"
+        img-height="50"
+      >
+        <a
+          :href="image.url"
+          target="_blank"
+          v-for="(image, index) in gallery.photos"
+          :key="index"
+        >
+          <b-carousel-slide
+            caption="First slide"
+            :img-src="image.url"
+          ></b-carousel-slide>
+        </a>
+      </b-carousel>
     </div>
 
     <!-- <div
@@ -240,4 +263,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.carousel {
+  width: 500px;
+  height: 500px;
+}
+</style>
