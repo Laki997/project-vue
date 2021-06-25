@@ -14,7 +14,7 @@ class AuthService extends baseService {
   }
 
   logout() {
-    this.client.post("/logout");
+    return this.client.post("/logout");
   }
 
   async getActiveUser() {

@@ -267,5 +267,6 @@ export default {
 .carousel {
   width: 500px;
   height: 500px;
+  margin: 0 auto;
 }
 </style>

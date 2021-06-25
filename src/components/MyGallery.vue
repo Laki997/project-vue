@@ -8,8 +8,8 @@
           {{ oneUser[0].user.lastName }}
         </strong></b
       >
-      <hr />
     </h1>
+    <hr />
 
     <div v-for="(user, index) in oneUser" :key="index">
       <h3>Galerija broj: {{ index + 1 }}</h3>
@@ -54,7 +54,9 @@ export default {
   async created() {
     await this.getActiveUser();
     await this.getOne(this.user.id);
-    console.log(this.oneUser);
+    if (this.oneUser.length === 0) {
+      alert("User nazalost nema kreiranu nijednu svoju galeriju");
+    }
   },
 };
 </script>
