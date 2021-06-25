@@ -33,12 +33,14 @@
         v-bind:src="img.url"
         :key="index"
       /> -->
+
       <img
         width="300px"
         height="300px"
         v-bind:src="gallery.photos[0].url"
         :key="index"
       />
+
       <br />
       <br />
     </div>
@@ -60,6 +62,10 @@ export default {
   methods: {
     ...mapActions({ getAll: "gallery/getAll" }),
     ...mapMutations({ setSearchTerm: "gallery/setSearchTerm" }),
+
+    alert() {
+      alert("greska");
+    },
   },
 
   async created() {

@@ -9,6 +9,7 @@ import { globalAuthGuard } from "../guards/authGuard";
 import SingleGallery from "../components/SingleGallery";
 import SingleAuthor from "../components/SingleAuthor";
 import MyGallery from "../components/MyGallery";
+import EditGallery from "../components/EditGallery";
 
 Vue.use(VueRouter);
 
@@ -28,9 +29,17 @@ const routes = [
     props: true,
   },
   {
+    path: "/edit-gallery/:id",
+    component: EditGallery,
+    props: true,
+    meta: { authRequired: true },
+  },
+
+  {
     path: "/myGalleries",
     component: MyGallery,
     props: true,
+    meta: { authRequired: true },
   },
   {
     path: "/create",

@@ -23,6 +23,18 @@ class GalleryService extends baseService {
     console.log(data);
     return data;
   }
+
+  async delete(id) {
+    const { data } = await this.client.delete(`/galleries/${id}`);
+
+    return data;
+  }
+
+  async edit(gallery) {
+    const { data } = await this.client.put(`/galleries/${gallery.id}`, gallery);
+
+    return data;
+  }
 }
 
 const galleryService = new GalleryService();

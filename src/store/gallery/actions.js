@@ -21,4 +21,18 @@ export const actions = {
 
     store.commit("setOneGallery", gallery);
   },
+
+  async deleteGallery(store, id) {
+    const data = await galleryService.delete(id);
+
+    return data;
+  },
+
+  async editGallery(store, post) {
+    const data = await galleryService.edit(post);
+
+    store.commit("setOneGallery", data);
+
+    return data;
+  },
 };

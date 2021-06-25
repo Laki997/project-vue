@@ -9,7 +9,7 @@
           id="naziv"
           aria-describedby="emailHelp"
           placeholder="Enter naziv"
-          v-model="gallery.naziv"
+          v-model="newGallery.naziv"
           required
         />
       </div>
@@ -17,7 +17,7 @@
         <label for="opis">Opis</label>
         <textarea
           class="form-control"
-          v-model="gallery.opis"
+          v-model="newGallery.opis"
           id="exampleFormControlTextarea1"
           rows="3"
         ></textarea>
@@ -25,7 +25,7 @@
 
       <div
         class="form-group"
-        v-for="(input, index) in gallery.inputs"
+        v-for="(input, index) in newGallery.photos"
         :key="index"
       >
         <label for="photo">Dodaj sliku</label>
@@ -33,19 +33,19 @@
         <i
           class="fas fa-minus-circle"
           @click="remove(index)"
-          v-show="index || (!index && gallery.inputs.length > 1)"
+          v-show="index || (!index && newGallery.photos.length > 1)"
         ></i>
         <i
           class=" fas fa-angle-down"
           @click="move(index, index + 1)"
-          :disabled="index == gallery.inputs.length - 1"
+          :disabled="index == newGallery.photos.length - 1"
         >
         </i>
 
         <i
           class="fas fa-plus-circle"
           @click="add(index)"
-          v-show="index == gallery.inputs.length - 1"
+          v-show="index == newGallery.photos.length - 1"
         ></i>
         <i
           class="fas fa-angle-up"
@@ -56,7 +56,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary">
-        Submit
+        Edit
       </button>
 
       <button @click="cancel" class="btn btn-warning">Cancel</button>
@@ -65,44 +65,61 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["id"],
   data() {
     return {
-      gallery: {
+      newGallery: {
         naziv: "",
         opis: "",
-        inputs: [{ url: "" }],
+        photos: [{ url: "" }],
       },
     };
   },
-
   methods: {
-    ...mapActions({ addGallery: "gallery/addGallery" }),
+    ...mapActions({ getOne: "gallery/getOne" }),
+    ...mapActions({ editGallery: "gallery/editGallery" }),
+
+    async onSubmit() {
+      console.log(this.newGallery);
+      await this.editGallery(this.newGallery);
+      this.$router.push(`/galleries/${this.id}`);
+    },
 
     cancel() {
-      this.$router.push("/galleries");
+      this.router.push(`/galleries/${this.id}`);
     },
+
     add(index) {
-      this.gallery.inputs.push({ url: "" });
+      this.gallery.photos.push({ url: "" });
       console.log(index);
     },
     remove(index) {
-      this.gallery.inputs.splice(index, 1);
+      this.gallery.photos.splice(index, 1);
     },
 
-    async onSubmit() {
-      await this.addGallery(this.gallery)
-        .then(() => {
-          this.$router.push("/galleries");
-        })
-        .catch((error) => {
-          const errors = Object.values(error.response.data.errors);
+    move(oldIndex, newIndex) {
+      if (oldIndex == 0 && newIndex == -1) {
+        return;
+      }
 
-          alert(`${errors}` + "\n");
-        });
+      this.gallery.photos.splice(
+        newIndex,
+        0,
+        this.gallery.photos.splice(oldIndex, 1)[0]
+      );
     },
+  },
+
+  computed: {
+    ...mapGetters({ gallery: "gallery/gallery" }),
+  },
+
+  async created() {
+    await this.getOne(this.id);
+    this.newGallery = this.gallery;
+    console.log(this.gallery);
   },
 };
 </script>
