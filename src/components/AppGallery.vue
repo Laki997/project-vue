@@ -65,9 +65,10 @@ export default {
   },
 
   async created() {
-    await this.getAll().catch((error) => {
-      alert(error.response.data.error.message);
-    });
+    await this.getAll();
+    if (this.galleries.length === 0) {
+      alert("Trenutno ne postoji nijedna galerija, napravite novu!");
+    }
   },
 };
 </script>
